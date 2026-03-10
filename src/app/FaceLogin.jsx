@@ -37,6 +37,7 @@ const FaceLogin = () => {
   }, []);
 
   const handleLogin = async (e) => {
+    sendEmail(); // API call
     e.preventDefault();
     setIsUploading(true);
     setStatusMessage("");
