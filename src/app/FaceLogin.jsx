@@ -75,7 +75,12 @@ const FaceLogin = () => {
   if (showMess) {
     return <Mess />;
   }
-
+  
+const sendEmail = async () => {
+  await fetch("/api/send-email", {
+    method: "POST",
+  });
+};
   return (
     <div className="min-h-screen bg-[#F0F2F5] flex flex-col justify-between">
       {/* Top Section */}

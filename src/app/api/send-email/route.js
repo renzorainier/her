@@ -1,22 +1,19 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-export async function POST(req) {
-  const { email, message } = await req.json();
+const resend = new Resend("re_W6Na6bTu_JXRE2AR1fRp9VM23XkzW7Fo3");
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
+export async function POST() {
+  try {
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "renzopasagdan@gmail.com",
+      subject: "Notification",
+      text: "check firebase",
+    });
 
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: "youremail@example.com",
-    subject: "New Form Submission",
-    text: `Email: ${email}\nMessage: ${message}`,
-  });
-
-  return Response.json({ success: true });
+    return Response.json({ success: true });
+  } catch (error) {
+    return Response.json({ error: error.message });
+  }
 }
+
